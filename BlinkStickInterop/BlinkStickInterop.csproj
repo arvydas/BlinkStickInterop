@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -36,6 +36,23 @@
         <Command type="AfterBuild" command="C:\Windows\Microsoft.NET\Framework64\v4.0.30319\RegAsm.exe /codebase /tlb ${TargetFile}" pauseExternalConsole="True" />
       </CustomCommands>
     </CustomCommands>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <Optimize>true</Optimize>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -60,4 +77,14 @@
       <Name>LibUsbDotNet</Name>
     </ProjectReference>
   </ItemGroup>
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>C:\Windows\Microsoft.NET\Framework64\v4.0.30319\RegAsm.exe /codebase /tlb $(TargetPath)
+
+"C:\Program Files (x86)\WiX Toolset v3.9\bin\Heat.exe" file $(TargetPath) -dr INSTALLFOLDER -srd -gg -sfrag -suid -out $(SolutionDir)Setup\BlinkStickInteropDLL.wxs
+"C:\Program Files (x86)\WiX Toolset v3.9\bin\Heat.exe" file $(TargetDir)$(TargetName).tlb -dr INSTALLFOLDER -srd -gg -sfrag -suid -out $(SolutionDir)Setup\BlinkStickInteropTLB.wxs</PostBuildEvent>
+  </PropertyGroup>
 </Project>

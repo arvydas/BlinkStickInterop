@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
+  <?define ProductVersion="!(bind.FileVersion.BlinkStickInterop.dll)" ?>
+  
+  <Product Id="*" Name="BlinkStick Interop" Language="1033" Version="$(var.ProductVersion)" Manufacturer="Agile Innovative Ltd" UpgradeCode="1D9CFB6E-A8E3-419F-A66C-BD4C522DC03F">
+    <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+
+    <PropertyRef Id="NETFRAMEWORK40FULL"/>
+    <Condition Message="This application requires .NET Framework 4.0. Please install the .NET Framework then run this installer again.">
+      <![CDATA[Installed OR NETFRAMEWORK40FULL]]>
+    </Condition>
+
+    <MajorUpgrade AllowSameVersionUpgrades="yes" Schedule='afterInstallFinalize' DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+    <MediaTemplate EmbedCab="yes" />
+
+    <Feature Id="ProductFeature" Title="Main Libraries" Level="1">
+      <ComponentGroupRef Id="ProductComponents" />
+      <ComponentGroupRef Id="ApplicationShortcuts" />
+      <ComponentGroupRef Id="ProgramRegistry" />
+    </Feature>
+
+    <!-- UI -->
+    <WixVariable Id="WixUILicenseRtf" Value="license.rtf" />
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER" />
+
+    <UI>
+      <UIRef Id="WixUI_InstallDir" />
+    </UI>
+    
+    <!-- Stop previous version if running -->
+    <Property Id="PREVIOUS_INSTALL_FOLDER" Value="No">
+      <RegistrySearch Id="INSTALL_DIR_SEARCH" Key="Software\Agile Innovative Ltd\BlinkStickInterop" Name="InstallDir" Root="HKLM" Type="raw"/>
+    </Property>
+
+  </Product>
+
+	<Fragment>
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="ProgramFilesFolder">
+				<Directory Id="INSTALLFOLDER" Name="BlinkStick Interop" />
+			</Directory>
+      <Directory Id="ProgramMenuFolder">
+        <Directory Id="ApplicationProgramsFolder" Name="BlinkStick Interop"/>
+      </Directory>
+		</Directory>
+	</Fragment>
+
+	<Fragment>
+		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+      <Component Id="BlinkStickInterop.dll" Guid="9D26FED9-A0EA-434D-A3C7-1F797F2CB956">
+        <File Id="BlinkStickInterop.dll" Source="..\BlinkStickInterop\bin\$(var.Configuration)\BlinkStickInterop.dll" KeyPath="yes" Checksum="yes"/>
+			</Component>
+      <Component Id="BlinkStickDotNet.dll" Guid="B6C091DA-2956-4E57-8D45-FB0B6B9DA813">
+        <File Id="BlinkStickDotNet.dll" Source="..\BlinkStickInterop\bin\$(var.Configuration)\BlinkStickDotNet.dll" />
+			</Component>
+      <Component Id="HidSharp.dll" Guid="A8C50E40-2463-47FC-8FB6-6C8F66AFC8AB">
+        <File Id="HidSharp.dll" Source="..\BlinkStickInterop\bin\$(var.Configuration)\HidSharp.dll" />
+			</Component>
+      <Component Id="LibUsbDotNet.dll" Guid="BF727EE6-7CBA-4BDC-AA0C-5F1A4C7C67BB">
+        <File Id="LibUsbDotNet.dll" Source="..\BlinkStickInterop\bin\$(var.Configuration)\LibUsbDotNet.dll" />
+			</Component>
+		</ComponentGroup>
+	</Fragment>
+  
+	<Fragment>
+    <ComponentGroup Id="ApplicationShortcuts" Directory="ApplicationProgramsFolder">
+      <Component Id="ApplicationShortcut" Guid="C49A989E-CDD0-4CDA-8FDD-AE6B792554F5">
+        <Shortcut Id="UninstallProduct"             
+                  Name="Uninstall BlinkStick Interop"
+                  Description="Uninstalls BlinkStick Interop"
+                  Target="[System64Folder]msiexec.exe"
+                  Arguments="/x [ProductCode]"/>
+        <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall"/>
+        <RegistryValue Root="HKCU" Key="Software\Agile Innovative Ltd\BlinkStickInterop" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+      </Component>
+    </ComponentGroup>
+	</Fragment>
+
+  <Fragment>
+    <ComponentGroup Id="ProgramRegistry" Directory="INSTALLFOLDER">
+      <Component Id="ProgramRegistryHKCU" Guid="108928F6-C8D8-46DF-A698-A2E2862A7CE1">
+        <RegistryKey Id="RegInstallDir" Root="HKLM" Key="Software\Agile Innovative Ltd\BlinkStickInterop" Action="createAndRemoveOnUninstall">
+          <RegistryValue Name="InstalledVersion" Type="string" Value="$(var.ProductVersion)"/>
+          <RegistryValue Name="InstallDir" Type="string" Value="[INSTALLFOLDER]"/>
+        </RegistryKey>
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+</Wix>
