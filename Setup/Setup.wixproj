@@ -22,13 +22,6 @@
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
     <LinkerAdditionalOptions>-ext WixUIExtension -ext WixUtilExtension -ext WixNetFxExtension</LinkerAdditionalOptions>
   </PropertyGroup>
-  <ItemGroup>
-    <Compile Include="Product.wxs" />
-  </ItemGroup>
-  <Import Project="$(WixTargetsPath)" />
-  <PropertyGroup>
-    <MSBuildCommunityTasksPath>$(MSBuildProjectDirectory)\..\.build</MSBuildCommunityTasksPath>
-  </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
     <DefineConstants>Debug</DefineConstants>
     <LinkerAdditionalOptions>-ext WixUIExtension -ext WixUtilExtension -ext WixNetFxExtension</LinkerAdditionalOptions>
@@ -39,6 +32,13 @@
     <LinkerAdditionalOptions>-ext WixUIExtension -ext WixUtilExtension -ext WixNetFxExtension</LinkerAdditionalOptions>
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Platform)\$(Configuration)\</IntermediateOutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Product.wxs" />
+  </ItemGroup>
+  <Import Project="$(WixTargetsPath)" />
+  <PropertyGroup>
+    <MSBuildCommunityTasksPath>$(MSBuildProjectDirectory)\..\.build</MSBuildCommunityTasksPath>
   </PropertyGroup>
   <Target Name="AfterBuild">
     <GetAssemblyIdentity AssemblyFiles="..\BlinkStickInterop\bin\$(Configuration)\BlinkStickInterop.dll">
