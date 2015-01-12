@@ -562,7 +562,14 @@ namespace BlinkStickInterop
 		/// </summary>
 		public byte GetMode ()
 		{
-			return (byte)led.GetMode ();
+            try
+            {
+                return (byte)led.GetMode();
+            }
+            catch
+            {
+                return 0;
+            }
 		}
 	}
 }
