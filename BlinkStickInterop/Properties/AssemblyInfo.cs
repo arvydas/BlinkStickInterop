@@ -7,7 +7,11 @@ using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle ("BlinkStickDotNet.Interop")]
 [assembly: AssemblyDescription ("")]
-[assembly: AssemblyConfiguration ("")]
+#if DEBUG
+[assembly: AssemblyConfiguration("debug")]
+#else
+[assembly: AssemblyConfiguration("alpha1")] //Set beta1, beta2, beta3 and etc
+#endif
 [assembly: AssemblyCompany ("Agile Innovative Ltd")]
 [assembly: AssemblyProduct ("")]
 [assembly: AssemblyCopyright ("(c) Agile Innovative Ltd")]
