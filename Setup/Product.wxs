@@ -2,7 +2,17 @@
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
   <?define ProductVersion="!(bind.FileVersion.BlinkStickInterop.dll)" ?>
   
-  <Product Id="*" Name="BlinkStick Interop" Language="1033" Version="$(var.ProductVersion)" Manufacturer="Agile Innovative Ltd" UpgradeCode="1D9CFB6E-A8E3-419F-A66C-BD4C522DC03F">
+  <?if $(var.Platform) = x64 ?>
+    <?define ProductName = "BlinkStick Interop (64 bit)" ?>
+    <?define Win64 = "yes" ?>
+    <?define PlatformProgramFilesFolder = "ProgramFiles64Folder" ?>
+  <?else ?>
+    <?define ProductName = "BlinkStick Interop" ?>
+    <?define Win64 = "no" ?>
+    <?define PlatformProgramFilesFolder = "ProgramFilesFolder" ?>
+  <?endif ?>
+  
+  <Product Id="*" Name="$(var.ProductName)" Language="1033" Version="$(var.ProductVersion)" Manufacturer="Agile Innovative Ltd" UpgradeCode="1D9CFB6E-A8E3-419F-A66C-BD4C522DC03F">
     <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 
     <PropertyRef Id="NETFRAMEWORK40FULL"/>
@@ -36,11 +46,11 @@
 
 	<Fragment>
 		<Directory Id="TARGETDIR" Name="SourceDir">
-			<Directory Id="ProgramFilesFolder">
+			<Directory Id="$(var.PlatformProgramFilesFolder)">
 				<Directory Id="INSTALLFOLDER" Name="BlinkStick Interop" />
 			</Directory>
       <Directory Id="ProgramMenuFolder">
-        <Directory Id="ApplicationProgramsFolder" Name="BlinkStick Interop"/>
+        <Directory Id="ApplicationProgramsFolder" Name="$(var.ProductName)"/>
       </Directory>
 		</Directory>
 	</Fragment>
