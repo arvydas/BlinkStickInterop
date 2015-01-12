@@ -50,6 +50,9 @@
       <Component Id="BlinkStickInterop.dll" Guid="9D26FED9-A0EA-434D-A3C7-1F797F2CB956">
         <File Id="BlinkStickInterop.dll" Source="..\BlinkStickInterop\bin\$(var.Configuration)\BlinkStickInterop.dll" KeyPath="yes" Checksum="yes"/>
 			</Component>
+      <Component Id="BlinkStickInterop.tlb" Guid="52ADC920-6036-49C3-A2D6-F0F816803852">
+        <File Id="BlinkStickInterop.tlb" Source="..\BlinkStickInterop\bin\$(var.Configuration)\BlinkStickInterop.tlb" KeyPath="yes" Checksum="yes"/>
+			</Component>
       <Component Id="BlinkStickDotNet.dll" Guid="B6C091DA-2956-4E57-8D45-FB0B6B9DA813">
         <File Id="BlinkStickDotNet.dll" Source="..\BlinkStickInterop\bin\$(var.Configuration)\BlinkStickDotNet.dll" />
 			</Component>
