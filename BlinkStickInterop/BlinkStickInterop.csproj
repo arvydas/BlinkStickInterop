@@ -82,9 +82,6 @@
     </PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>C:\Windows\Microsoft.NET\Framework64\v4.0.30319\RegAsm.exe /codebase /tlb $(TargetPath)
-
-"C:\Program Files (x86)\WiX Toolset v3.9\bin\Heat.exe" file $(TargetPath) -dr INSTALLFOLDER -srd -gg -sfrag -suid -out $(SolutionDir)Setup\BlinkStickInteropDLL.wxs
-"C:\Program Files (x86)\WiX Toolset v3.9\bin\Heat.exe" file $(TargetDir)$(TargetName).tlb -dr INSTALLFOLDER -srd -gg -sfrag -suid -out $(SolutionDir)Setup\BlinkStickInteropTLB.wxs</PostBuildEvent>
+    <PostBuildEvent>$(SolutionDir)register.bat $(PlatformName) "$(TargetDir)$(TargetName)" "$(SolutionDir)"</PostBuildEvent>
   </PropertyGroup>
 </Project>
