@@ -185,3 +185,6 @@ FakesAssemblies/
 
 # Documentation
 Documentation
+
+Setup/BlinkStickInteropDLL.wxs
+Setup/BlinkStickInteropTLB.wxs
