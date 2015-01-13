@@ -20,7 +20,8 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
-    <LinkerAdditionalOptions>-ext WixUIExtension -ext WixUtilExtension -ext WixNetFxExtension</LinkerAdditionalOptions>
+    <LinkerAdditionalOptions>-ext WixUIExtension -ext WixUtilExtension -ext WixNetFxExtension -b ..\BlinkStickInterop\Bin\$(Configuration)\ -b ..\Documentation\html\</LinkerAdditionalOptions>
+    <CompilerAdditionalOptions>-ext WixUtilExtension</CompilerAdditionalOptions>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
     <DefineConstants>Debug</DefineConstants>
@@ -34,6 +35,8 @@
     <IntermediateOutputPath>obj\$(Platform)\$(Configuration)\</IntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="BlinkStickInteropDLL.wxs" />
+    <Compile Include="BlinkStickInteropTLB.wxs" />
     <Compile Include="Product.wxs" />
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
@@ -50,6 +53,9 @@
     <Copy SourceFiles=".\bin\$(Configuration)\$(OutputName).msi" DestinationFiles=".\bin\$(Configuration)\BlinkStick_Interop_$(BuildString).msi" />
     <Delete Files=".\bin\$(Configuration)\$(OutputName).msi" />
   </Target>
+  <PropertyGroup>
+    <PreBuildEvent>$(SolutionDir)\doxygen.bat</PreBuildEvent>
+  </PropertyGroup>
   <!--
 	To modify your build process, add your task inside one of the targets below and uncomment it.
 	Other similar extension points exist, see Wix.targets.

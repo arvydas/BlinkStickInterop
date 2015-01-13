@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
   <?define ProductVersion="!(bind.FileVersion.BlinkStickInterop.dll)" ?>
   
   <?if $(var.Platform) = x64 ?>
@@ -57,32 +57,51 @@
 
 	<Fragment>
 		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
-      <Component Id="BlinkStickInterop.dll" Guid="9D26FED9-A0EA-434D-A3C7-1F797F2CB956">
-        <File Id="BlinkStickInterop.dll" Source="..\BlinkStickInterop\bin\$(var.Configuration)\BlinkStickInterop.dll" KeyPath="yes" Checksum="yes"/>
-			</Component>
-      <Component Id="BlinkStickInterop.tlb" Guid="52ADC920-6036-49C3-A2D6-F0F816803852">
-        <File Id="BlinkStickInterop.tlb" Source="..\BlinkStickInterop\bin\$(var.Configuration)\BlinkStickInterop.tlb" KeyPath="yes" Checksum="yes"/>
-			</Component>
       <Component Id="BlinkStickDotNet.dll" Guid="B6C091DA-2956-4E57-8D45-FB0B6B9DA813">
-        <File Id="BlinkStickDotNet.dll" Source="..\BlinkStickInterop\bin\$(var.Configuration)\BlinkStickDotNet.dll" />
+        <File Id="BlinkStickDotNet.dll" Source="SourceDir\BlinkStickDotNet.dll" />
 			</Component>
       <Component Id="HidSharp.dll" Guid="A8C50E40-2463-47FC-8FB6-6C8F66AFC8AB">
-        <File Id="HidSharp.dll" Source="..\BlinkStickInterop\bin\$(var.Configuration)\HidSharp.dll" />
+        <File Id="HidSharp.dll" Source="SourceDir\HidSharp.dll" />
 			</Component>
       <Component Id="LibUsbDotNet.dll" Guid="BF727EE6-7CBA-4BDC-AA0C-5F1A4C7C67BB">
-        <File Id="LibUsbDotNet.dll" Source="..\BlinkStickInterop\bin\$(var.Configuration)\LibUsbDotNet.dll" />
+        <File Id="LibUsbDotNet.dll" Source="SourceDir\LibUsbDotNet.dll" />
 			</Component>
+      <Component Id="BlinkStickInterop.chi" Guid="F5B809E8-B80C-4496-B4E4-C6FD88D4AAD9">
+        <File Id="BlinkStickInterop.chi" Source="SourceDir\BlinkStickInterop.chi" />
+			</Component>
+      <Component Id="BlinkStickInterop.chm" Guid="E778FFF1-A195-4123-9488-D80C1F47FA75">
+        <File Id="BlinkStickInterop.chm" Source="SourceDir\BlinkStickInterop.chm" />
+			</Component>
+      <ComponentRef Id="BlinkStickInterop.dll" />
+      <ComponentRef Id="BlinkStickInterop.tlb" />
 		</ComponentGroup>
 	</Fragment>
   
 	<Fragment>
     <ComponentGroup Id="ApplicationShortcuts" Directory="ApplicationProgramsFolder">
       <Component Id="ApplicationShortcut" Guid="C49A989E-CDD0-4CDA-8FDD-AE6B792554F5">
-        <Shortcut Id="UninstallProduct"             
-                  Name="Uninstall BlinkStick Interop"
-                  Description="Uninstalls BlinkStick Interop"
-                  Target="[System64Folder]msiexec.exe"
-                  Arguments="/x [ProductCode]"/>
+        <Shortcut Id="ApplicationHelpShortcut"
+                  Name="Documentation"
+                  Description="BlinkStick Interop documentation"
+                  Target="[#BlinkStickInterop.chm]"
+                  WorkingDirectory="APPLICATIONROOTDIRECTORY"/>
+        
+        <util:InternetShortcut Id="OnlineDocumentationShortcut"
+                  Name="Online Documentation"
+                  Target="http://arvydas.github.io/BlinkStickInterop"/>
+        
+        <util:InternetShortcut Id="OnlineForumsShortcut"
+                  Name="Support Forums"
+                  Target="http://forums.blinkstick.com/"/>
+        
+        <util:InternetShortcut Id="OnlineContactShortcut"
+                  Name="Contact"
+                  Target="http://www.blinkstick.com/help/contact"/>
+        
+        <util:InternetShortcut Id="OnlineWebsiteShortcut"
+                  Name="BlinkStick.com"
+                  Target="http://www.blinkstick.com/"/>
+        
         <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall"/>
         <RegistryValue Root="HKCU" Key="Software\Agile Innovative Ltd\BlinkStickInterop" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
       </Component>
