@@ -1,2 +1,3 @@
-"C:\Program Files\doxygen\bin\doxygen.exe" Doxyfile
+cd %~dp0
+"C:\Program Files\doxygen\bin\doxygen.exe" "Doxyfile"
 
