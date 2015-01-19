@@ -40,6 +40,7 @@ var NAVTREEINDEX0 =
 "class_blink_stick_interop_1_1_blink_stick_finder.html":[1,0,0,1],
 "class_blink_stick_interop_1_1_blink_stick_finder.html#a5f5465c802a6df211d3d168a3dc8ccf5":[1,0,0,1,0],
 "class_blink_stick_interop_1_1_blink_stick_finder.html#a6a70ae32ddb124649351b25bb5de8189":[1,0,0,1,1],
+"class_blink_stick_interop_1_1_blink_stick_finder.html#ab57d686643c4a0f5e3e709181f20c28c":[1,0,0,1,3],
 "class_blink_stick_interop_1_1_blink_stick_finder.html#ae85ed682e6004ffb901d10aeb8509027":[1,0,0,1,2],
 "classes.html":[1,1],
 "functions.html":[1,3,0],
@@ -81,10 +82,11 @@ var NAVTREEINDEX0 =
 "interface_blink_stick_interop_1_1_i_blink_stick.html#af58b76f7c432be22123178ac8d80fe06":[1,0,0,2,3],
 "interface_blink_stick_interop_1_1_i_blink_stick.html#afc91d67a55367bf95407af03634ff6a3":[1,0,0,2,14],
 "interface_blink_stick_interop_1_1_i_blink_stick_finder.html":[1,0,0,3],
+"interface_blink_stick_interop_1_1_i_blink_stick_finder.html#a6438336b249bca4f92c328ec9c5379d6":[1,0,0,3,2],
 "interface_blink_stick_interop_1_1_i_blink_stick_finder.html#aba1a88f0df9bf6fc8877e4fd4f16ec56":[1,0,0,3,1],
 "interface_blink_stick_interop_1_1_i_blink_stick_finder.html#ac5703c0b8a1df40fe090088bb88c3f4f":[1,0,0,3,0],
-"namespace_blink_stick_interop.html":[1,0,0],
 "namespace_blink_stick_interop.html":[0,0,0],
+"namespace_blink_stick_interop.html":[1,0,0],
 "namespaces.html":[0,0],
 "pages.html":[]
 };
