@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.Collections.Generic;
 
 namespace BlinkStickInterop
 {
@@ -21,6 +22,12 @@ namespace BlinkStickInterop
 		/// <returns>Finds BlinkStick device by serial number.</returns>
 		/// <param name="serial">Serial number of the device</param>
 		IBlinkStick FindBySerial (String serial);
+
+		/// <summary>
+		/// Find serial numbers of all connected BlinkStick devices
+		/// </summary>
+		/// <returns>Array of serial numbers.</returns>
+        string[] FindSerials();
 	}
 
 	/// <summary>
@@ -63,6 +70,21 @@ namespace BlinkStickInterop
 			}
 
 			return null;
+		}
+
+		/// <summary>
+		/// See <see cref="BlinkStickInterop.IBlinkStickFinder.FindSerials"/>.
+		/// </summary>
+		public string[] FindSerials ()
+		{
+            List<string> serials = new List<string>();
+
+            foreach (BlinkStickDotNet.BlinkStick blinkStick in BlinkStickDotNet.BlinkStick.FindAll())
+            {
+                serials.Add(blinkStick.Serial);
+            }
+
+			return serials.ToArray();
 		}
 	}
 }
