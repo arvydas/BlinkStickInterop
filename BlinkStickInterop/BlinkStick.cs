@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 namespace BlinkStickInterop
@@ -248,6 +249,35 @@ namespace BlinkStickInterop
 		/// </summary>
 		/// <returns>0 - Normal, 1 - Inverse, 2 - WS2812, 3 - WS2812 mirror</returns>
 		byte GetMode();
+
+		/// <summary>
+		/// Enables buffered mode for <see cref="BlinkStickInterop.IBlinkStick.SetIndexedColorCSS"/> 
+		/// and <see cref="BlinkStickInterop.IBlinkStick.SetIndexedColor"/>. 
+		/// Use <see cref="BlinkStickInterop.IBlinkStick.Send"/> function to send the data to LEDs.
+		/// </summary>
+		/// <param name="ledCount"></param>
+		void SetBuffered(int ledCount);
+
+		/// <summary>
+		/// Disables buffered mode
+		/// </summary>
+		void SetUnbuffered();
+
+		/// <summary>
+		/// Sends color data to LEDs
+		/// </summary>
+		/// <param name="channel">Channel to send data to</param>
+		void Send(byte channel);
+
+		/// <summary>
+		/// Set color to a range of LEDs
+		/// </summary>
+		/// <param name="from">First index of LED</param>
+		/// <param name="to">Last index of LED</param>
+		/// <param name="r">R color value</param>
+		/// <param name="g">G color value</param>
+		/// <param name="b">B color value</param>
+		void SetColorRange(byte from, byte to, byte r, byte g, byte b);
 	}
 
 	/// <summary>
@@ -257,6 +287,9 @@ namespace BlinkStickInterop
 	[ClassInterface(ClassInterfaceType.None)]
 	public class BlinkStick : IBlinkStick
 	{
+		private Byte[] buffer;
+		private Boolean buffered = false;
+
 		/// <summary>
 		/// Holds reference to BlinkStickDotNet.BlinkStick object
 		/// </summary>
@@ -303,7 +336,14 @@ namespace BlinkStickInterop
 		/// </summary>
 		public void SetColor (byte r, byte g, byte b)
 		{
-			led.SetColor (r, g, b);
+			if (buffered)
+			{
+				SetBuffer(0, r, g, b);
+			}
+			else
+			{
+    			led.SetColor (r, g, b);
+			}
 		}
 
 		/// <summary>
@@ -311,7 +351,15 @@ namespace BlinkStickInterop
 		/// </summary>
 		public void SetColorCSS (String color)
 		{
-			led.SetColor (color);
+			if (buffered)
+			{
+				BlinkStickDotNet.RgbColor c = BlinkStickDotNet.RgbColor.FromString(color);
+				SetBuffer(0, c.R, c.G, c.B);
+			}
+			else
+			{
+    			led.SetColor (color);
+			}
 		}
 
 		/// <summary>
@@ -319,7 +367,14 @@ namespace BlinkStickInterop
 		/// </summary>
 		public void SetIndexedColor (byte channel, byte index, byte r, byte g, byte b)
 		{
-			led.SetColor (channel, index, r, g, b);
+			if (buffered)
+			{
+				SetBuffer(index, r, g, b);
+			}
+			else
+			{
+    			led.SetColor (channel, index, r, g, b);
+			}
 		}
 
 
@@ -328,7 +383,15 @@ namespace BlinkStickInterop
 		/// </summary>
 		public void SetIndexedColorCSS (byte channel, byte index, String color)
 		{
-			led.SetColor (channel, index, color);
+			if (buffered)
+			{
+				BlinkStickDotNet.RgbColor c = BlinkStickDotNet.RgbColor.FromString(color);
+				SetBuffer(index, c.R, c.G, c.B);
+			}
+			else
+			{
+    			led.SetColor (channel, index, color);
+			}
 		}
 
 		/// <summary>
@@ -570,6 +633,60 @@ namespace BlinkStickInterop
             {
                 return 0;
             }
+		}
+
+		/// <summary>
+		/// See <see cref="BlinkStickInterop.IBlinkStick.SetBuffered"/>.
+		/// </summary>
+		public void SetBuffered(int ledCount)
+		{
+			buffer = new Byte[ledCount * 3];
+			buffered = true;
+		}
+
+		/// <summary>
+		/// See <see cref="BlinkStickInterop.IBlinkStick.SetUnbuffered"/>.
+		/// </summary>
+		public void SetUnbuffered()
+		{
+			buffered = false;
+		}
+
+		/// <summary>
+		/// See <see cref="BlinkStickInterop.IBlinkStick.SetBuffer"/>.
+		/// </summary>
+		private void SetBuffer(int index, byte r, byte g, byte b)
+		{
+			if (index * 3 > buffer.Length)
+			{
+				throw new ArgumentException("Index value is too large");
+			}
+
+			buffer[index * 3] = g;
+			buffer[index * 3 + 1] = r;
+			buffer[index * 3 + 2] = b;
+		}
+
+		/// <summary>
+		/// See <see cref="BlinkStickInterop.IBlinkStick.Send"/>.
+		/// </summary>
+		public void Send(byte channel)
+		{
+			if (buffered)
+			{
+    			led.SetColors(channel, buffer);
+			}
+		}
+
+		/// <summary>
+		/// See <see cref="BlinkStickInterop.IBlinkStick.SetColorRange"/>.
+		/// </summary>
+		public void SetColorRange(byte from, byte to, byte r, byte g, byte b)
+		{
+			for (byte i= from; i <= to; i++)
+			{
+				SetIndexedColor(0, i, r, g, b);
+			}
 		}
 	}
 }
