@@ -188,3 +188,6 @@ Documentation
 
 Setup/BlinkStickInteropDLL.wxs
 Setup/BlinkStickInteropTLB.wxs
+
+# Visual Studio files
+.vs/
