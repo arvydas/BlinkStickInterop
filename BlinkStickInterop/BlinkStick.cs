@@ -254,6 +254,7 @@ namespace BlinkStickInterop
 		/// Enables buffered mode for <see cref="BlinkStickInterop.IBlinkStick.SetIndexedColorCSS"/> 
 		/// and <see cref="BlinkStickInterop.IBlinkStick.SetIndexedColor"/>. 
 		/// Use <see cref="BlinkStickInterop.IBlinkStick.Send"/> function to send the data to LEDs.
+		/// In buffered mode channel value is ignored for functions that support it.
 		/// </summary>
 		/// <param name="ledCount"></param>
 		void SetBuffered(int ledCount);

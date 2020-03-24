@@ -30,6 +30,6 @@ https://www.blinkstick.com/help/contact
 
 ## Copyright and License
 
-Copyright (c) 2015 Agile Innovative Ltd and contributors.
+Copyright (c) 2015-2020 Agile Innovative Ltd and contributors.
 
 Released under MIT license.
