@@ -2,9 +2,13 @@ REM %1 - platform name
 REM %2 - TargetDir+TargetName
 REM %3 - SolutionDir
 
+echo Platform %1
+
 IF "%1" == "x86" (
+	echo C:\Windows\Microsoft.NET\Framework\v4.0.30319\RegAsm.exe /codebase /tlb "%~2.dll"
 	C:\Windows\Microsoft.NET\Framework\v4.0.30319\RegAsm.exe /codebase /tlb "%~2.dll"
 ) ELSE (
+	echo C:\Windows\Microsoft.NET\Framework64\v4.0.30319\RegAsm.exe /codebase /tlb "%~2.dll" 
 	C:\Windows\Microsoft.NET\Framework64\v4.0.30319\RegAsm.exe /codebase /tlb "%~2.dll"
 )
 
