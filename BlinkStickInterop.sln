@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.902
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibUsbDotNet", "Components\BlinkStickDotNet\Components\LibWinUsb\LibUsbDotNet.csproj", "{0A78F6FF-5586-4052-8104-E23FF83A7CE1}"
 EndProject
@@ -56,8 +56,8 @@ Global
 		{7AAEBEBE-E38D-47B1-A04C-A055DCEB0757}.Release|x86.Build.0 = Release|Any CPU
 		{095D7A2F-A6AE-4CDB-8DF9-ED18AB87F974}.Debug|x64.ActiveCfg = Debug|Any CPU
 		{095D7A2F-A6AE-4CDB-8DF9-ED18AB87F974}.Debug|x64.Build.0 = Debug|Any CPU
-		{095D7A2F-A6AE-4CDB-8DF9-ED18AB87F974}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{095D7A2F-A6AE-4CDB-8DF9-ED18AB87F974}.Debug|x86.Build.0 = Debug|Any CPU
+		{095D7A2F-A6AE-4CDB-8DF9-ED18AB87F974}.Debug|x86.ActiveCfg = Debug|x86
+		{095D7A2F-A6AE-4CDB-8DF9-ED18AB87F974}.Debug|x86.Build.0 = Debug|x86
 		{095D7A2F-A6AE-4CDB-8DF9-ED18AB87F974}.Release|x64.ActiveCfg = Release|Any CPU
 		{095D7A2F-A6AE-4CDB-8DF9-ED18AB87F974}.Release|x64.Build.0 = Release|Any CPU
 		{095D7A2F-A6AE-4CDB-8DF9-ED18AB87F974}.Release|x86.ActiveCfg = Release|x86
@@ -77,6 +77,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1217552B-72C5-4D4B-A0F1-7AD0B28EC68C}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Components\BlinkStickDotNet\Components\LibWinUsb\LibUsbDotNet.csproj
