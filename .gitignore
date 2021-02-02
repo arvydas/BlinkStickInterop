@@ -191,3 +191,5 @@ Setup/BlinkStickInteropTLB.wxs
 
 # Visual Studio files
 .vs/
+
+!Setup/wix
