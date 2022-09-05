@@ -279,6 +279,18 @@ namespace BlinkStickInterop
 		/// <param name="g">G color value</param>
 		/// <param name="b">B color value</param>
 		void SetColorRange(byte from, byte to, byte r, byte g, byte b);
+
+        /// <summary>
+        /// Set the number of LEDs controlled by device
+        /// </summary>
+        /// <param name="count">Number of LEDs to controll</param>
+        void SetLedCount(int count);
+
+        /// <summary>
+        /// Get the number of LEDs controller by device
+        /// </summary>
+        /// <returns>Number of LEDs controlled by device</returns>
+        int GetLedCount();
 	}
 
 	/// <summary>
@@ -689,6 +701,22 @@ namespace BlinkStickInterop
 				SetIndexedColor(0, i, r, g, b);
 			}
 		}
-	}
+
+        /// <summary>
+        /// See <see cref="BlinkStickInterop.IBlinkStick.SetLedCount"/>.
+        /// </summary>
+        public void SetLedCount(int count)
+        {
+            led.SetLedCount((byte)count);
+        }
+
+        /// <summary>
+        /// See <see cref="BlinkStickInterop.IBlinkStick.GetLedCount"/>.
+        /// </summary>
+        public int GetLedCount()
+        {
+            return led.GetLedCount();
+        }
+    }
 }
 
